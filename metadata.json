@@ -1,0 +1,6 @@
+{
+  "name": "StudyMate",
+  "description": "Mobile-first student study companion with schedule, exams, homework deadlines, reminders, and educational AI assistant.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
