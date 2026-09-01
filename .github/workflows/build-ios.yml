@@ -1,10 +1,10 @@
-name: Find iOS Project
+name: Build iOS
 
 on:
   workflow_dispatch:
 
 jobs:
-  check:
+  build:
     runs-on: macos-latest
 
     steps:
@@ -13,10 +13,19 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: 22
+          cache: npm
 
-      - run: npm install
+      - run: npm ci
       - run: npm run build
       - run: npx cap sync ios
 
-      - name: Find iOS workspace
-        run: find ios -name "*.xcworkspace" -print
+      - name: Build iOS
+        run: |
+          xcodebuild \
+            -workspace ios/App/App.xcodeproj/project.xcworkspace \
+            -scheme App \
+            -sdk iphoneos \
+            -configuration Release \
+            -archivePath build/App.xcarchive \
+            archive \
+            CODE_SIGNING_ALLOWED=NO
